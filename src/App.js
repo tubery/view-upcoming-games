@@ -1,8 +1,15 @@
+import Footer from "./layout/Footer";
+import MainContent from "./layout/MainContent";
+import Header from "./layout/Header";
+import "./index.css";
+
 function App() {
 	return (
-		<>
-			<h1>Hello world</h1>
-		</>
+		<div className="flex flex-col min-h-screen">
+			<Header />
+			<MainContent />
+			<Footer />
+		</div>
 	);
 }
 
