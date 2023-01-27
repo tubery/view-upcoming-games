@@ -1,3 +1,11 @@
+## Todo
+
+Set up proxy server
+
+Fix UI
+
+Screen sizes UI
+
 # View Upcoming Games
 
 Upcoming games web application is focused on providing accessible information on
