@@ -4,8 +4,27 @@ import GamesContext from "../../context/GamesContext";
 export default function Cards() {
 	const { games } = useContext(GamesContext);
 
+	const months = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
+
+	const comparison = (a, b) => {
+		return a > b ? a : b;
+	};
+
 	return (
-		<div className="flex flex-col justify-center gap-y-4 gap-x-4 sm:flex-row sm:flex-wrap sm:justify-items-around">
+		<div className="flex flex-col justify-center my-4 gap-y-4 gap-x-4 sm:flex-row sm:flex-wrap sm:justify-items-around">
 			{games.map((game) => {
 				return (
 					<div
@@ -56,21 +75,34 @@ export default function Cards() {
 										</h3>
 									))
 								) : (
-									<h3>No platform</h3>
+									<h3 className="badge badge-outline badge-primary">
+										No platform
+									</h3>
 								)}
 							</div>
 							{/* Genre */}
 							<div className="flex flex-wrap gap-2 mb-2 justify-left align-center">
-								{game.hasOwnProperty("genres")
-									? game.genres.map((genre, index) => (
-											<h3
-												className="badge badge-outline"
-												key={index}
-											>
-												{genre.name}
-											</h3>
-									  ))
-									: "No genre"}
+								{game.hasOwnProperty("genres") ? (
+									game.genres.map((genre, index) => (
+										<h3
+											className="badge badge-outline"
+											key={index}
+										>
+											{genre.name}
+										</h3>
+									))
+								) : (
+									<h3 className="badge badge-outline">
+										No genre
+									</h3>
+								)}
+							</div>
+							<div className="p-3 text-xl badge badge-outline badge-secondary">
+								{game.hasOwnProperty("release_dates")
+									? game.release_dates.reduce((a, b) =>
+											comparison(a, b)
+									  ).human
+									: "TBD"}
 							</div>
 						</div>
 					</div>
