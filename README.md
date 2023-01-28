@@ -4,7 +4,7 @@ Set up proxy server -- done
 
 Fix UI -- partial / WIP
 
-Sort correctly
+Sort correctly - sorting by month and year instead of timestamp
 
 Filter Logic
 
