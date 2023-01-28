@@ -23,12 +23,40 @@ export default function Cards() {
 		<div className="flex flex-col justify-center my-4 gap-y-4 gap-x-4 sm:flex-row sm:flex-wrap sm:justify-items-around">
 			{games.map((game) => {
 				return (
+					<div className="card sm:w-full md:w-1/4 h-auto bg-base-100 shadow-xl image-full">
+						<figure>
+							<img
+								src={
+									game.hasOwnProperty("cover")
+										? game.cover.url.replace(
+												"t_thumb",
+												"t_720p"
+										  )
+										: "https://via.placeholder.com/264x374"
+								}
+								alt="Shoes"
+							/>
+						</figure>
+						<div className="card-body">
+							<h2 className="card-title font-bold text-2xl">
+								Shoes!
+							</h2>
+							<p className="text-xl font-bold prose">
+								If a dog chews shoes whose shoes does he choose?
+							</p>
+						</div>
+					</div>
+				);
+			})}
+
+			{games.map((game) => {
+				return (
 					<div
-						className="w-full shadow-xl sm:w-1/3 md:w-2/5 lg:w-1/4 card bg-base-100 card-compact"
+						className="w-full shadow-xl sm:w-1/3 md:w-2/5 lg:w-1/4 card bg-base-100 card-compact bg-contain"
 						key={game.id}
 					>
 						<div className="card-body">
-							<div className="flex justify-between">
+							<div className="flex justify-around">
 								<a
 									href={
 										game.hasOwnProperty("websites")
@@ -42,27 +70,22 @@ export default function Cards() {
 									{game.name}
 								</a>
 								<div className="p-2 avatar">
-									{game.hasOwnProperty("cover") ? (
-										<div className="w-32 rounded-lg">
-											<img
-												src={game.cover.url.replace(
-													"t_thumb",
-													"t_cover_big"
-												)}
-												alt="Game cover"
-											/>
-										</div>
-									) : (
-										<div className="w-32 rounded">
-											<img
-												src="https://via.placeholder.com/264x374"
-												alt="Game cover"
-											/>
-										</div>
-									)}
+									<div className="w-24 rounded-lg">
+										<img
+											src={
+												game.hasOwnProperty("cover")
+													? game.cover.url.replace(
+															"t_thumb",
+															"t_cover_big"
+													  )
+													: "https://via.placeholder.com/264x374"
+											}
+											alt=""
+										/>
+									</div>
 								</div>
 							</div>
-							<p className="mb-2 text-lg text-left line-clamp-4">
+							<p className="mb-2 text-lg text-left line-clamp-3">
 								{game.hasOwnProperty("summary")
 									? game.summary
 									: "No description"}
