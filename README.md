@@ -1,8 +1,14 @@
 ## Todo
 
-Set up proxy server
+Set up proxy server -- done
 
-Fix UI
+Fix UI -- partial / WIP
+
+Sort correctly
+
+Filter Logic
+
+Pagination
 
 Screen sizes UI
 

@@ -19,10 +19,6 @@ export default function Cards() {
 		"Dec",
 	];
 
-	const comparison = (a, b) => {
-		return a > b ? a : b;
-	};
-
 	return (
 		<div className="flex flex-col justify-center my-4 gap-y-4 gap-x-4 sm:flex-row sm:flex-wrap sm:justify-items-around">
 			{games.map((game) => {
@@ -46,19 +42,27 @@ export default function Cards() {
 									{game.name}
 								</a>
 								<div className="p-2 avatar">
-									<div className="rounded bg-slate-400">
-										<img
-											src={
-												game.hasOwnProperty("cover")
-													? game.cover.url
-													: "http://via.placeholder.com/90x90"
-											}
-											alt=""
-										/>
-									</div>
+									{game.hasOwnProperty("cover") ? (
+										<div className="w-32 rounded-lg">
+											<img
+												src={game.cover.url.replace(
+													"t_thumb",
+													"t_cover_big"
+												)}
+												alt="Game cover"
+											/>
+										</div>
+									) : (
+										<div className="w-32 rounded">
+											<img
+												src="https://via.placeholder.com/264x374"
+												alt="Game cover"
+											/>
+										</div>
+									)}
 								</div>
 							</div>
-							<p className="mb-2 text-lg text-left truncate ...">
+							<p className="mb-2 text-lg text-left line-clamp-4">
 								{game.hasOwnProperty("summary")
 									? game.summary
 									: "No description"}
@@ -99,8 +103,11 @@ export default function Cards() {
 							</div>
 							<div className="p-3 text-xl badge badge-outline badge-secondary">
 								{game.hasOwnProperty("release_dates")
-									? game.release_dates.reduce((a, b) =>
-											comparison(a, b)
+									? game.release_dates.reduce(
+											(prev, current) =>
+												prev.date > current.date
+													? prev
+													: current
 									  ).human
 									: "TBD"}
 							</div>

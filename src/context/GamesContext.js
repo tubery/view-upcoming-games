@@ -11,6 +11,9 @@ export const GameProvider = ({ children }) => {
 	useEffect(() => {
 		// Get Data from API
 		const fetchDb = async () => {
+			const today = Date.now();
+			console.log(today);
+
 			const response = await fetch(
 				"https://hg3xf9f66l.execute-api.us-west-2.amazonaws.com/production/v4/games",
 				{
@@ -21,10 +24,10 @@ export const GameProvider = ({ children }) => {
 						"Content-Type": "application/json",
 						"x-api-key": "HS0Fvb4VSm7VLGTLFlDzN55pdZGS0sFE5HtOiuej",
 					},
-					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; limit 10;`,
+					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; `,
 				}
 			);
-			// where release_dates.date > 1651154312;
+
 			const data = await response.json();
 			console.log(data);
 			setGames(data);
