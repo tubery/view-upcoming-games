@@ -1,52 +1,15 @@
-import React, { useContext } from "react";
-import GamesContext from "../../context/GamesContext";
+import React from "react";
 
-export default function Cards() {
-	const { games } = useContext(GamesContext);
-
-	const months = [
-		"Jan",
-		"Feb",
-		"Mar",
-		"Apr",
-		"May",
-		"Jun",
-		"Jul",
-		"Aug",
-		"Sep",
-		"Oct",
-		"Nov",
-		"Dec",
-	];
-
+export default function Backup() {
 	return (
-		<div className="flex flex-col justify-center my-4 gap-y-4 gap-x-4 sm:flex-row sm:flex-wrap sm:justify-items-around">
+		<div>
 			{games.map((game) => {
 				return (
 					<div
-						className="h-auto shadow-xl card sm:w-1/2 md:w-2/5 lg:w-1/4 bg-base-100 image-full card-compact"
+						className="w-full bg-contain shadow-xl sm:w-1/3 md:w-2/5 lg:w-1/4 card bg-base-100 card-compact"
 						key={game.id}
 					>
-						<figure>
-							<img
-								src={
-									game.hasOwnProperty("cover")
-										? game.cover.url.replace(
-												"t_thumb",
-												"t_720p"
-										  )
-										: "https://via.placeholder.com/264x374"
-								}
-								alt="Game cover"
-							/>
-						</figure>
 						<div className="card-body">
-							{/* <h2 className="text-2xl font-bold text-white card-title">
-								Shoes!
-							</h2>
-							<p className="text-white">
-								If a dog chews shoes whose shoes does he choose?
-							</p> */}
 							<div className="flex justify-around">
 								<a
 									href={
@@ -54,14 +17,29 @@ export default function Cards() {
 											? game.websites[0].url
 											: ""
 									}
-									className="text-2xl font-bold text-white card-title link-hover"
+									className="text-2xl card-title link-hover"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									{game.name}
 								</a>
+								<div className="p-2 avatar">
+									<div className="w-24 rounded-lg">
+										<img
+											src={
+												game.hasOwnProperty("cover")
+													? game.cover.url.replace(
+															"t_thumb",
+															"t_cover_big"
+													  )
+													: "https://via.placeholder.com/264x374"
+											}
+											alt=""
+										/>
+									</div>
+								</div>
 							</div>
-							<p className="mb-2 text-lg text-left line-clamp-1">
+							<p className="mb-2 text-lg text-left line-clamp-3">
 								{game.hasOwnProperty("summary")
 									? game.summary
 									: "No description"}
@@ -71,14 +49,14 @@ export default function Cards() {
 								{game.hasOwnProperty("platforms") ? (
 									game.platforms.map((platform, index) => (
 										<h3
-											className="badge badge-primary "
+											className="badge badge-outline badge-primary"
 											key={index}
 										>
 											{platform.abbreviation}
 										</h3>
 									))
 								) : (
-									<h3 className="badge badge-primary">
+									<h3 className="badge badge-outline badge-primary">
 										No platform
 									</h3>
 								)}
@@ -88,19 +66,19 @@ export default function Cards() {
 								{game.hasOwnProperty("genres") ? (
 									game.genres.map((genre, index) => (
 										<h3
-											className="badge badge-secondary"
+											className="badge badge-outline"
 											key={index}
 										>
 											{genre.name}
 										</h3>
 									))
 								) : (
-									<h3 className="badge badge-secondary">
+									<h3 className="badge badge-outline">
 										No genre
 									</h3>
 								)}
 							</div>
-							<div className="p-3 text-xl badge badge-accent">
+							<div className="p-3 text-xl badge badge-outline badge-secondary">
 								{game.hasOwnProperty("release_dates")
 									? game.release_dates.reduce(
 											(prev, current) =>

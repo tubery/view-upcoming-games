@@ -4,6 +4,10 @@ Set up proxy server -- done
 
 Fix UI -- partial / WIP
 
+Implement buttons
+
+Make functions more general in context
+
 Sort correctly - sorting by month and year instead of timestamp
 
 Filter Logic

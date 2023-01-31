@@ -5,7 +5,7 @@ const GamesContext = createContext();
 export const GameProvider = ({ children }) => {
 	// Setting State
 	const [games, setGames] = useState([]);
-	const [localGames, setLocalGames] = useState([]);
+	const [genres, setGenres] = useState([]);
 
 	// Fetch Games
 	useEffect(() => {
@@ -21,19 +21,31 @@ export const GameProvider = ({ children }) => {
 						"Content-Type": "application/json",
 						"x-api-key": "HS0Fvb4VSm7VLGTLFlDzN55pdZGS0sFE5HtOiuej",
 					},
-					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; where release_dates.y >= 2023; sort date asc;`,
+					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; where release_dates.y >= 2023 & release_dates.m >= 1; sort date asc;`,
 				}
 			);
 
 			const data = await response.json();
 			console.log(data);
 			setGames(data);
+			updateGenresList(data);
 		};
 		fetchDb();
 	}, []);
 
+	const updateGenresList = (games) => {
+		let tempSet = new Set();
+		games.map((game) =>
+			game.hasOwnProperty("genres")
+				? game.genres.map((genre) => tempSet.add(genre.name))
+				: null
+		);
+		let tempArr = Array.from(tempSet);
+		setGenres(tempArr);
+	};
+
 	return (
-		<GamesContext.Provider value={{ games, localGames }}>
+		<GamesContext.Provider value={{ games, genres }}>
 			{children}
 		</GamesContext.Provider>
 	);
