@@ -1,5 +1,7 @@
 import React from "react";
 
+// Reusable componenet for modals
+
 export default function Checkbox({ value, func, id }) {
 	return (
 		<div>

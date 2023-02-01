@@ -8,6 +8,10 @@ Implement buttons
 
 Make functions more general in context
 
+Make buttons more general purpose - repeated code
+
+Genres, platforms, low due to low amount of fetched items, fix this
+
 Sort correctly - sorting by month and year instead of timestamp
 
 Filter Logic

@@ -3,7 +3,7 @@ import GamesContext from "../../context/GamesContext";
 import Checkbox from "./Checkbox";
 
 export default function GenreButton() {
-	const { genres } = useContext(GamesContext);
+	const { genres, handleButtons } = useContext(GamesContext);
 
 	return (
 		<div>
@@ -19,7 +19,14 @@ export default function GenreButton() {
 					<h3 className="m-4 text-lg font-bold text-center">Genre</h3>
 					<div className="flex flex-row flex-wrap justify-around w-full gap-4 justify-items-center">
 						{genres.map((genre, index) => {
-							return <Checkbox value={genre} key={index} />;
+							return (
+								<Checkbox
+									value={genre}
+									key={index}
+									func={handleButtons}
+									id={genre}
+								/>
+							);
 						})}
 					</div>
 					<div className="modal-action">

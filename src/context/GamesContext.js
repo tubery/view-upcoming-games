@@ -6,6 +6,7 @@ export const GameProvider = ({ children }) => {
 	// Setting State
 	const [games, setGames] = useState([]);
 	const [genres, setGenres] = useState([]);
+	const [platforms, setPlatforms] = useState([]);
 
 	// Fetch Games
 	useEffect(() => {
@@ -29,10 +30,13 @@ export const GameProvider = ({ children }) => {
 			console.log(data);
 			setGames(data);
 			updateGenresList(data);
+			updatePlatformList(data);
 		};
 		fetchDb();
 	}, []);
 
+	// Update list to render buttons
+	// Dynamic as genre list may change with time
 	const updateGenresList = (games) => {
 		let tempSet = new Set();
 		games.map((game) =>
@@ -40,12 +44,37 @@ export const GameProvider = ({ children }) => {
 				? game.genres.map((genre) => tempSet.add(genre.name))
 				: null
 		);
-		let tempArr = Array.from(tempSet);
+		let tempArr = Array.from(tempSet).sort();
 		setGenres(tempArr);
 	};
 
+	// Update list to render platform button
+	// Repurpose into general function for genre and platforms ****
+	// Dynamic list of platforms
+	const updatePlatformList = (games) => {
+		let tempSet = new Set();
+		games.map((game) =>
+			game.hasOwnProperty("platforms")
+				? game.platforms.map((platform) =>
+						tempSet.add(platform.abbreviation)
+				  )
+				: null
+		);
+		let tempArr = Array.from(tempSet).sort();
+		setPlatforms(tempArr);
+	};
+
+	// Placeholder function
+	// Rename function
+	const handleButtons = (e) => {
+		console.log(e.value);
+	};
+
+	// Pass down to components
 	return (
-		<GamesContext.Provider value={{ games, genres }}>
+		<GamesContext.Provider
+			value={{ games, genres, platforms, handleButtons }}
+		>
 			{children}
 		</GamesContext.Provider>
 	);

@@ -1,10 +1,20 @@
 import React from "react";
 import GenreButton from "./GenreButton";
+import MonthButton from "./MonthButton";
+import ClearButton from "./ClearButton";
+import PlatformButton from "./PlatformButton";
+import YearButton from "./YearButton";
+
+// Re construct buttons into reusable componenent containing checkbox
 
 export default function AllButtons() {
 	return (
 		<div className="flex flex-wrap justify-center gap-4 my-2">
 			<GenreButton />
+			<PlatformButton />
+			<MonthButton />
+			<YearButton />
+			<ClearButton />
 		</div>
 	);
 }
