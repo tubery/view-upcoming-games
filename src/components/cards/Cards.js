@@ -4,21 +4,6 @@ import GamesContext from "../../context/GamesContext";
 export default function Cards() {
 	const { games } = useContext(GamesContext);
 
-	const months = [
-		"Jan",
-		"Feb",
-		"Mar",
-		"Apr",
-		"May",
-		"Jun",
-		"Jul",
-		"Aug",
-		"Sep",
-		"Oct",
-		"Nov",
-		"Dec",
-	];
-
 	return (
 		<div className="flex flex-col justify-center my-4 gap-y-4 gap-x-4 sm:flex-row sm:flex-wrap sm:justify-items-around">
 			{games.map((game) => {
@@ -71,7 +56,7 @@ export default function Cards() {
 								{game.hasOwnProperty("platforms") ? (
 									game.platforms.map((platform, index) => (
 										<h3
-											className="badge badge-primary "
+											className="badge badge-primary"
 											key={index}
 										>
 											{platform.abbreviation}

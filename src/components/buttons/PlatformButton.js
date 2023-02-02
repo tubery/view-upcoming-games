@@ -24,7 +24,7 @@ export default function PlatformButton() {
 		<div>
 			<label
 				htmlFor="platformModal"
-				className="btn btn-primary modal-button"
+				className="btn btn-secondary modal-button"
 			>
 				Platform
 			</label>
@@ -40,7 +40,7 @@ export default function PlatformButton() {
 					<h3 className="m-4 text-lg font-bold text-center">
 						Platform
 					</h3>
-					<div className="flex flex-row flex-wrap justify-around w-full gap-4 justify-items-center">
+					<div className="flex flex-col flex-wrap justify-between w-full gap-4 sm:flex-row justify-items-center">
 						{/* Make dynamic, currently hardocded */}
 						<Checkbox value="PC" func={handleButtons} />
 						<Checkbox value="PS5" func={handleButtons} />
@@ -48,7 +48,7 @@ export default function PlatformButton() {
 						<Checkbox value="Series X" func={handleButtons} />
 					</div>
 					<div className="divider"></div>
-					<div className="flex flex-row flex-wrap justify-around w-full gap-4 justify-items-center">
+					<div className="flex flex-col flex-wrap justify-between w-full gap-4 sm:flex-row justify-items-center">
 						{platforms.map((platform, index) => {
 							return checkPopular(platform) ? (
 								<Checkbox
@@ -65,7 +65,7 @@ export default function PlatformButton() {
 					<div className="modal-action">
 						<label
 							htmlFor="platformModal"
-							className="w-full btn btn-error"
+							className="w-full btn btn-error btn-outline"
 						>
 							Close
 						</label>

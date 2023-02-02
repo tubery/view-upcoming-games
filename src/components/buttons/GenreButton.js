@@ -17,7 +17,7 @@ export default function GenreButton() {
 			<div className="modal">
 				<div className="max-w-screen-md modal-box">
 					<h3 className="m-4 text-lg font-bold text-center">Genre</h3>
-					<div className="flex flex-row flex-wrap justify-around w-full gap-4 justify-items-center">
+					<div className="flex flex-col flex-wrap justify-between w-full gap-4 justify-items-center sm:flex-row">
 						{genres.map((genre, index) => {
 							return (
 								<Checkbox
@@ -32,7 +32,7 @@ export default function GenreButton() {
 					<div className="modal-action">
 						<label
 							htmlFor="genreModal"
-							className="w-full btn-error btn"
+							className="w-full btn-error btn btn-outline"
 						>
 							Close
 						</label>

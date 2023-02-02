@@ -12,6 +12,11 @@ Make buttons more general purpose - repeated code
 
 Genres, platforms, low due to low amount of fetched items, fix this
 
+Card sorting - messed up due to months days and years, covert to Date object
+possibly
+
+Figure out how to implement user filter on api side rather than client side
+
 Sort correctly - sorting by month and year instead of timestamp
 
 Filter Logic
