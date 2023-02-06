@@ -64,6 +64,16 @@ export const GameProvider = ({ children }) => {
 		setPlatforms(tempArr);
 	};
 
+	// Hide card-body on click
+	// and show iamge
+	// .card.image-full:before backbground color
+	const handleCard = (e) => {
+		const item = e.target.parentElement;
+		if (item.classList.contains("card-body")) {
+			item.classList.toggle("opacity-0");
+		}
+	};
+
 	// Placeholder function
 	// Rename function
 	const handleButtons = (e) => {
@@ -73,7 +83,7 @@ export const GameProvider = ({ children }) => {
 	// Pass down to components
 	return (
 		<GamesContext.Provider
-			value={{ games, genres, platforms, handleButtons }}
+			value={{ games, genres, platforms, handleButtons, handleCard }}
 		>
 			{children}
 		</GamesContext.Provider>

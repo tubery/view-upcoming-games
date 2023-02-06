@@ -13,7 +13,10 @@ Make buttons more general purpose - repeated code
 Genres, platforms, low due to low amount of fetched items, fix this
 
 Card sorting - messed up due to months days and years, covert to Date object
-possibly
+possibly / or change all into release dates by month and year
+
+Make button to see image .card.image-full:before backbground color to restore
+brightness, card-body opacity 0
 
 Figure out how to implement user filter on api side rather than client side
 
