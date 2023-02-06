@@ -17,8 +17,6 @@ export default function Header() {
 				</div>
 				<div className="divider divider-horizontal"></div>
 				<p>Updated: 01/2023</p>
-				<div className="divider divider-horizontal"></div>
-				<p>Click game title or description</p>
 				<div className="navbar-end"></div>
 			</div>
 		</header>

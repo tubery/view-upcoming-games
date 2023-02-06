@@ -20,7 +20,7 @@ export default function Cards() {
 												"t_thumb",
 												"t_720p"
 										  )
-										: "https://via.placeholder.com/264x374"
+										: "https://via.placeholder.com/1280x720"
 								}
 								alt="Game cover"
 							/>

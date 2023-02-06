@@ -22,11 +22,19 @@ export const GameProvider = ({ children }) => {
 						"Content-Type": "application/json",
 						"x-api-key": "HS0Fvb4VSm7VLGTLFlDzN55pdZGS0sFE5HtOiuej",
 					},
-					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; where release_dates.y >= 2023 & release_dates.m >= 1; sort date asc;`,
+					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; sort date asc; where release_dates.y >= 2023 & release_dates.m >= 1; limit 100;`,
 				}
 			);
 
-			const data = await response.json();
+			let data = await response.json();
+			// Dates are array format of objects
+			data.sort((a, b) =>
+				a.release_dates.reduce((a, b) => (a.date > b.date ? a : b))
+					.date >
+				b.release_dates.reduce((a, b) => (a.date > b.date ? a : b)).date
+					? 1
+					: -1
+			);
 			console.log(data);
 			setGames(data);
 			updateGenresList(data);
@@ -34,6 +42,12 @@ export const GameProvider = ({ children }) => {
 		};
 		fetchDb();
 	}, []);
+
+	// Reduce dates on games
+	// Cannot sort on API side
+	// Attemp to sort client side
+	// Move above sorted dates into function for cleaner
+	const reduceDates = (data) => {};
 
 	// Update list to render buttons
 	// Dynamic as genre list may change with time
