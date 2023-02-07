@@ -6,7 +6,7 @@ import Checkbox from "./Checkbox";
 // Static list of months
 
 export default function MonthButton() {
-	const { handleButtons } = useContext(GamesContext);
+	const { combineMonthFilters, updateList } = useContext(GamesContext);
 
 	const months = [
 		"Jan",
@@ -37,10 +37,10 @@ export default function MonthButton() {
 						{months.map((month, index) => {
 							return (
 								<Checkbox
-									key={index}
-									value={month}
-									id={index + 1}
-									func={handleButtons}
+									key={index + 1}
+									value={index + 1}
+									id={month}
+									func={combineMonthFilters}
 								/>
 							);
 						})}
@@ -49,6 +49,7 @@ export default function MonthButton() {
 						<label
 							htmlFor="monthModal"
 							className="w-full btn btn-error btn-outline"
+							onClick={updateList}
 						>
 							Close
 						</label>

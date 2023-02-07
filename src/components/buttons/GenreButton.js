@@ -3,7 +3,8 @@ import GamesContext from "../../context/GamesContext";
 import Checkbox from "./Checkbox";
 
 export default function GenreButton() {
-	const { genres, handleButtons } = useContext(GamesContext);
+	const { genres, combineGenreFilters, updateList } =
+		useContext(GamesContext);
 
 	return (
 		<div>
@@ -21,9 +22,9 @@ export default function GenreButton() {
 						{genres.map((genre, index) => {
 							return (
 								<Checkbox
-									value={genre}
+									value="Genre"
 									key={index}
-									func={handleButtons}
+									func={combineGenreFilters}
 									id={genre}
 								/>
 							);
@@ -33,6 +34,7 @@ export default function GenreButton() {
 						<label
 							htmlFor="genreModal"
 							className="w-full btn-error btn btn-outline"
+							onClick={updateList}
 						>
 							Close
 						</label>

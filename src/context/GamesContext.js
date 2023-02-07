@@ -3,10 +3,21 @@ import React, { createContext, useState, useEffect } from "react";
 const GamesContext = createContext();
 
 export const GameProvider = ({ children }) => {
-	// Setting State
+	// Setting Base State
 	const [games, setGames] = useState([]);
 	const [genres, setGenres] = useState([]);
 	const [platforms, setPlatforms] = useState([]);
+	const [years, setYears] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const currentMonth = new Date().getMonth() + 1;
+	const currentYear = new Date().getFullYear();
+	// Filter states
+	const [genreFilters, setGenrefilters] = useState([]);
+	const [platformFilters, setPlatformfilters] = useState([]);
+	const [monthFilters, setMonthfilters] = useState([]);
+	const [yearFilters, setYearfilters] = useState([]);
+	// Save first fetch
+	const [originalGamesList, setOriginalGamesList] = useState([]);
 
 	// Fetch Games
 	useEffect(() => {
@@ -22,32 +33,41 @@ export const GameProvider = ({ children }) => {
 						"Content-Type": "application/json",
 						"x-api-key": "HS0Fvb4VSm7VLGTLFlDzN55pdZGS0sFE5HtOiuej",
 					},
-					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; sort date asc; where release_dates.y >= 2023 & release_dates.m >= 1; limit 100;`,
+					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; sort date asc; where release_dates.y >= ${currentYear} & release_dates.m >= ${currentMonth}; limit 500;`,
 				}
 			);
-
 			let data = await response.json();
-			// Dates are array format of objects
-			data.sort((a, b) =>
-				a.release_dates.reduce((a, b) => (a.date > b.date ? a : b))
-					.date >
-				b.release_dates.reduce((a, b) => (a.date > b.date ? a : b)).date
-					? 1
-					: -1
-			);
-			console.log(data);
-			setGames(data);
-			updateGenresList(data);
-			updatePlatformList(data);
+			sortByDates(data); // Sort games before setting state
+			setGames(data); // Set games state
+			setOriginalGamesList(data); // Backup of game state
+			updateGenresList(data); // Update dynamic genre list
+			updatePlatformList(data); // Update dynamic platform list
+			updateYearList(data); // Update dynamic year list
+			setIsLoading(false); // Change loading state
 		};
 		fetchDb();
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	// Reduce dates on games
-	// Cannot sort on API side
-	// Attemp to sort client side
-	// Move above sorted dates into function for cleaner
-	const reduceDates = (data) => {};
+	// Initial Page Load *****************************************
+	// Sort games by dates
+	const sortByDates = (data) => {
+		data.sort((a, b) => comparison(a, b));
+	};
+
+	// Utility function
+	// return item with highest
+	// currently not general util
+	// repurpose later
+	const comparison = (prev, current) => {
+		return prev.release_dates.reduce((prev, current) =>
+			prev.date > current.date ? prev : current
+		).date >
+			current.release_dates.reduce((prev, current) =>
+				prev.date > current.date ? prev : current
+			).date
+			? 1
+			: -1;
+	};
 
 	// Update list to render buttons
 	// Dynamic as genre list may change with time
@@ -78,6 +98,22 @@ export const GameProvider = ({ children }) => {
 		setPlatforms(tempArr);
 	};
 
+	// Update list to render year button
+	// Repurpose into general function for genre and platforms ****
+	// Dynamic list of years
+	const updateYearList = (games) => {
+		let tempSet = new Set();
+		games.map((game) =>
+			game.hasOwnProperty("release_dates")
+				? game.release_dates.map((date) =>
+						date.hasOwnProperty("y") ? tempSet.add(date.y) : null
+				  )
+				: null
+		);
+		let tempArr = Array.from(tempSet).sort();
+		setYears(tempArr);
+	};
+
 	// Hide card-body on click
 	// and show iamge
 	// .card.image-full:before backbground color
@@ -88,16 +124,115 @@ export const GameProvider = ({ children }) => {
 		}
 	};
 
-	// Placeholder function
-	// Rename function
-	const handleButtons = (e) => {
-		console.log(e.value);
+	// After Initial Page Load *****************************************
+
+	// REPURPOSE ALL FILTER FUNCTIONS
+	// Set Genre filters
+	// combines user selection
+	// removes selection if deselected
+	const combineGenreFilters = (name) => {
+		if (name.checked) {
+			setGenrefilters([...genreFilters, name.id]);
+		} else if (name.checked === false) {
+			const updatedFilters = genreFilters.filter(
+				(genreName) => genreName !== name.id
+			);
+			setGenrefilters(updatedFilters);
+		}
+	};
+
+	// Set Platform filters
+	const combinePlatformFilters = (name) => {
+		if (name.checked) {
+			setPlatformfilters([...platformFilters, name.id]);
+		} else if (name.checked === false) {
+			const updatedFilters = platformFilters.filter(
+				(platformName) => platformName !== name.id
+			);
+			setPlatformfilters(updatedFilters);
+		}
+	};
+
+	// Set Month filters
+	const combineMonthFilters = (name) => {
+		if (name.checked) {
+			setMonthfilters([...monthFilters, parseInt(name.value)]);
+		} else if (name.checked === false) {
+			const updatedFilters = monthFilters.filter(
+				(monthName) => monthName !== parseInt(name.value)
+			);
+			setMonthfilters(updatedFilters);
+		}
+	};
+
+	// Set Year filters combination
+	const combineYearFilters = (name) => {
+		if (name.checked) {
+			setYearfilters([...yearFilters, parseInt(name.id)]);
+		} else if (name.checked === false) {
+			const updatedFilters = yearFilters.filter(
+				(year) => year !== parseInt(name.id)
+			);
+			setYearfilters(updatedFilters);
+		}
+	};
+
+	// Combine all filters on modal close
+	// Check target array exists in games function, Utility function
+	const checker = (arr, target) => target.every((item) => arr.includes(item));
+
+	// Combine all filters on modal close
+	const updateList = () => {
+		// Current date in unix timestamp
+		var unixTimestamp = Math.round(+new Date() / 1000);
+
+		// Find games based on filters
+		const allFilter = originalGamesList.filter(
+			(game) =>
+				checker(
+					game.hasOwnProperty("genres")
+						? game.genres.map((genre) => genre.name)
+						: "undefined",
+					genreFilters
+				) &&
+				checker(
+					game.platforms.map((platform) => platform.abbreviation),
+					platformFilters
+				) &&
+				checker(
+					game.release_dates
+						.filter((game) => game.date >= unixTimestamp)
+						.map((date) => date.m),
+					monthFilters
+				) &&
+				checker(
+					game.release_dates.map((date) => date.y),
+					yearFilters
+				)
+		);
+		// Set games list to filtered games
+		// Sort by date NOT SURE TO IMP OR NOT
+		setGames(allFilter);
 	};
 
 	// Pass down to components
 	return (
 		<GamesContext.Provider
-			value={{ games, genres, platforms, handleButtons, handleCard }}
+			value={{
+				games,
+				genres,
+				platforms,
+				years,
+				isLoading,
+				currentMonth,
+				currentYear,
+				handleCard,
+				combineGenreFilters,
+				combinePlatformFilters,
+				combineMonthFilters,
+				combineYearFilters,
+				updateList,
+			}}
 		>
 			{children}
 		</GamesContext.Provider>

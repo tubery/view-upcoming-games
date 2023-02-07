@@ -3,7 +3,8 @@ import GamesContext from "../../context/GamesContext";
 import Checkbox from "./Checkbox";
 
 export default function PlatformButton() {
-	const { platforms, handleButtons } = useContext(GamesContext);
+	const { platforms, combinePlatformFilters, updateList } =
+		useContext(GamesContext);
 
 	// Harcoded
 	// Make dynamic
@@ -12,7 +13,8 @@ export default function PlatformButton() {
 			name === "PC" ||
 			name === "PS5" ||
 			name === "Switch" ||
-			name === "Series X"
+			name === "Series X" ||
+			name === ""
 		) {
 			return false;
 		} else {
@@ -42,30 +44,45 @@ export default function PlatformButton() {
 					</h3>
 					<div className="flex flex-col flex-wrap justify-between w-full gap-4 sm:flex-row justify-items-center">
 						{/* Make dynamic, currently hardocded */}
-						<Checkbox value="PC" func={handleButtons} />
-						<Checkbox value="PS5" func={handleButtons} />
-						<Checkbox value="Switch" func={handleButtons} />
-						<Checkbox value="Series X" func={handleButtons} />
+						<Checkbox
+							value="Platform"
+							func={combinePlatformFilters}
+							id="PC"
+						/>
+						<Checkbox
+							value="Platform"
+							func={combinePlatformFilters}
+							id="PS5"
+						/>
+						<Checkbox
+							value="Platform"
+							func={combinePlatformFilters}
+							id="Switch"
+						/>
+						<Checkbox
+							value="Platform"
+							func={combinePlatformFilters}
+							id="Series X"
+						/>
 					</div>
 					<div className="divider"></div>
 					<div className="flex flex-col flex-wrap justify-between w-full gap-4 sm:flex-row justify-items-center">
 						{platforms.map((platform, index) => {
 							return checkPopular(platform) ? (
 								<Checkbox
-									value={platform}
-									func={handleButtons}
+									value="Platform"
+									func={combinePlatformFilters}
 									key={index}
 									id={platform}
 								/>
-							) : (
-								""
-							);
+							) : null;
 						})}
 					</div>
 					<div className="modal-action">
 						<label
 							htmlFor="platformModal"
 							className="w-full btn btn-error btn-outline"
+							onClick={updateList}
 						>
 							Close
 						</label>

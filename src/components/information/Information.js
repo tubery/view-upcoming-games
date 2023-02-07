@@ -8,6 +8,8 @@ export default function Information() {
 				<a
 					className="font-bold text-white underline hover:text-purple-300"
 					href="https://www.igdb.com/"
+					target="_blank"
+					rel="noreferrer"
 				>
 					IGDB API
 				</a>

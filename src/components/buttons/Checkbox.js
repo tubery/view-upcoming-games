@@ -6,7 +6,7 @@ export default function Checkbox({ value, func, id }) {
 	return (
 		<div>
 			<label className="flex-grow cursor-pointer label">
-				<span className="px-2 text-lg label-text ">{value}</span>
+				<span className="px-2 text-lg label-text ">{id}</span>
 				<input
 					type="checkbox"
 					className="checkbox"

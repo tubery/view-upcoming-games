@@ -4,11 +4,17 @@ Set up proxy server -- done
 
 Fix UI -- partial / WIP
 
+Fetch can overload - Replace fetch api with react query
+
+Optimize web app
+
 Implement buttons
 
 Make functions more general in context
 
 Make buttons more general purpose - repeated code
+
+Remove multiple month user selections - only allow one selection
 
 Genres, platforms, low due to low amount of fetched items, fix this
 
