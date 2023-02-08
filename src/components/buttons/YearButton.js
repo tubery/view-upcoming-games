@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import GamesContext from "../../context/GamesContext";
-import Checkbox from "./Checkbox";
+import Radio from "./Radio";
 
 export default function YearButton() {
 	const { years, combineYearFilters, updateList, currentYear } =
@@ -24,11 +24,11 @@ export default function YearButton() {
 					<div className="flex flex-col flex-wrap justify-between w-full gap-4 sm:flex-row justify-items-center">
 						{years.map((year, index) =>
 							year >= currentYear ? (
-								<Checkbox
-									key={index}
+								<Radio
+									key={index + 1}
 									value="Year"
-									func={combineYearFilters}
 									id={year}
+									func={combineYearFilters}
 								/>
 							) : null
 						)}

@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import GamesContext from "../../context/GamesContext";
 
 export default function Cards() {
-	const { games, handleCard } = useContext(GamesContext);
+	const { games, handleCard, currentGames } = useContext(GamesContext);
 
 	return (
 		<div className="flex flex-col justify-center my-4 gap-y-4 gap-x-4 sm:flex-row sm:flex-wrap sm:justify-items-around">
-			{games.map((game) => {
+			{currentGames.map((game) => {
 				return (
 					<div
 						className="h-auto shadow-xl card sm:w-1/2 md:w-2/5 lg:w-1/4 bg-base-100 image-full card-compact"

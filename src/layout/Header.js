@@ -19,7 +19,7 @@ export default function Header() {
 					</a>
 				</div>
 				<div className="divider divider-horizontal"></div>
-				<p>
+				<p className="text-lg">
 					Updated: {currentMonth} / {currentYear}
 				</p>
 				<div className="navbar-end"></div>

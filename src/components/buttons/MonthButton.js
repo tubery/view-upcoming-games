@@ -1,27 +1,13 @@
 import React, { useContext } from "react";
 import GamesContext from "../../context/GamesContext";
-import Checkbox from "./Checkbox";
+import Radio from "./Radio";
 
 // Month button
 // Static list of months
 
 export default function MonthButton() {
-	const { combineMonthFilters, updateList } = useContext(GamesContext);
-
-	const months = [
-		"Jan",
-		"Feb",
-		"Mar",
-		"Apr",
-		"May",
-		"Jun",
-		"Jul",
-		"Aug",
-		"Sep",
-		"Oct",
-		"Nov",
-		"Dec",
-	];
+	const { combineMonthFilters, updateList, months } =
+		useContext(GamesContext);
 
 	return (
 		<div>
@@ -36,7 +22,7 @@ export default function MonthButton() {
 					<div className="flex flex-col flex-wrap justify-between w-full gap-4 sm:flex-row justify-items-center">
 						{months.map((month, index) => {
 							return (
-								<Checkbox
+								<Radio
 									key={index + 1}
 									value={index + 1}
 									id={month}

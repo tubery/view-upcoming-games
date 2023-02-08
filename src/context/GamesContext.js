@@ -11,6 +11,20 @@ export const GameProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const currentMonth = new Date().getMonth() + 1;
 	const currentYear = new Date().getFullYear();
+	const months = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
 	// Filter states
 	const [genreFilters, setGenrefilters] = useState([]);
 	const [platformFilters, setPlatformfilters] = useState([]);
@@ -18,6 +32,9 @@ export const GameProvider = ({ children }) => {
 	const [yearFilters, setYearfilters] = useState([]);
 	// Save first fetch
 	const [originalGamesList, setOriginalGamesList] = useState([]);
+	// Pagination States
+	const [currentPage, setCurrentPage] = useState(1);
+	const [gamesPerPage] = useState(10);
 
 	// Fetch Games
 	useEffect(() => {
@@ -156,24 +173,14 @@ export const GameProvider = ({ children }) => {
 	// Set Month filters
 	const combineMonthFilters = (name) => {
 		if (name.checked) {
-			setMonthfilters([...monthFilters, parseInt(name.value)]);
-		} else if (name.checked === false) {
-			const updatedFilters = monthFilters.filter(
-				(monthName) => monthName !== parseInt(name.value)
-			);
-			setMonthfilters(updatedFilters);
+			setMonthfilters([parseInt(name.value)]);
 		}
 	};
 
 	// Set Year filters combination
 	const combineYearFilters = (name) => {
 		if (name.checked) {
-			setYearfilters([...yearFilters, parseInt(name.id)]);
-		} else if (name.checked === false) {
-			const updatedFilters = yearFilters.filter(
-				(year) => year !== parseInt(name.id)
-			);
-			setYearfilters(updatedFilters);
+			setYearfilters([parseInt(name.id)]);
 		}
 	};
 
@@ -215,6 +222,23 @@ export const GameProvider = ({ children }) => {
 		setGames(allFilter);
 	};
 
+	// Pagination
+	// Source - https://levelup.gitconnected.com/a-simple-guide-to-pagination-in-react-facd6f785bd0
+	const indexOfLastRecord = currentPage * gamesPerPage;
+	const indexOfFirstRecord = indexOfLastRecord - gamesPerPage;
+	const currentGames = games.slice(indexOfFirstRecord, indexOfLastRecord); //
+	const nPages = Math.ceil(games.length / gamesPerPage); // Max pages
+	const prevPage = () => {
+		if (currentPage !== 1) {
+			setCurrentPage(currentPage - 1);
+		}
+	};
+	const nextPage = () => {
+		if (currentPage !== nPages) {
+			setCurrentPage(currentPage + 1);
+		}
+	};
+
 	// Pass down to components
 	return (
 		<GamesContext.Provider
@@ -226,6 +250,17 @@ export const GameProvider = ({ children }) => {
 				isLoading,
 				currentMonth,
 				currentYear,
+				months,
+				genreFilters,
+				platformFilters,
+				monthFilters,
+				yearFilters,
+				nPages,
+				currentGames,
+				currentPage,
+				prevPage,
+				nextPage,
+				setCurrentPage,
 				handleCard,
 				combineGenreFilters,
 				combinePlatformFilters,

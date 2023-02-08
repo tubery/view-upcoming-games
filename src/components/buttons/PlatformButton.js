@@ -26,7 +26,7 @@ export default function PlatformButton() {
 		<div>
 			<label
 				htmlFor="platformModal"
-				className="btn btn-secondary modal-button"
+				className="btn btn-primary modal-button"
 			>
 				Platform
 			</label>

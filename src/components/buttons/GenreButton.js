@@ -10,7 +10,7 @@ export default function GenreButton() {
 		<div>
 			<label
 				htmlFor="genreModal"
-				className="btn btn-primary modal-button focus:btn-accent"
+				className="btn btn-secondary modal-button focus:btn-accent"
 			>
 				Genre
 			</label>

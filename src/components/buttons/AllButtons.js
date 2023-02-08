@@ -10,8 +10,8 @@ import YearButton from "./YearButton";
 export default function AllButtons() {
 	return (
 		<div className="flex flex-wrap justify-center gap-4 my-2">
-			<GenreButton />
 			<PlatformButton />
+			<GenreButton />
 			<MonthButton />
 			<YearButton />
 			<ClearButton />

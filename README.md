@@ -1,38 +1,50 @@
 ## Todo
 
-Set up proxy server -- done
+-   Set up proxy server - Due to cors error setting up a proxy to solve the
+    problem. Solved via AWS cloudformation proxy
 
-Fix UI -- partial / WIP
+-   Fix UI - Dark theme ui currently chosen, still subject to change
 
-Fetch can overload - Replace fetch api with react query
+-   Implement buttons - Implemented buttons with filtering actions via client
+    side
 
-Optimize web app
+-   Remove multiple month user selections - Multiple selections not intended for
+    monthly filters, fixed with radio buttons instead
 
-Implement buttons
+*   Genres, platforms, low due to low amount of fetched items - Currently
+    fetching 500 items however trade off is slow initial page load
 
-Make functions more general in context
+*   game sorting API - Solved using months and years and timestamps instead of
+    server side sorting
 
-Make buttons more general purpose - repeated code
+*   Make button to see image .card.image-full:before backbground color to
+    restore brightness, card-body opacity 0 - Currently pseudo class controls
+    overlay which makes covers dark, havent figured out how to bypass this
 
-Remove multiple month user selections - only allow one selection
+*   Filtering - Currently on client side, switching to server side may improve
+    load times
 
-Genres, platforms, low due to low amount of fetched items, fix this
+*   Sort games correctly - sorting implemented correctly however small issues
+    due to API not having full dates for all games
 
-Card sorting - messed up due to months days and years, covert to Date object
-possibly / or change all into release dates by month and year
+*   Pagination
 
-Make button to see image .card.image-full:before backbground color to restore
-brightness, card-body opacity 0
+*   Screen sizes UI
 
-Figure out how to implement user filter on api side rather than client side
+## Future implementations
 
-Sort correctly - sorting by month and year instead of timestamp
+-   Reduce useState
 
-Filter Logic
+*   Optimize web app
 
-Pagination
+*   Make functions more general in context
 
-Screen sizes UI
+*   Make buttons more general purpose - repeated code
+
+-   Fetch can overload - Replace fetch api with react query
+
+*   Clear all filters button - Not true clear all, ideally remove all checkbox
+    to unchecked, reset to oroginal list without page refresh
 
 # View Upcoming Games
 
