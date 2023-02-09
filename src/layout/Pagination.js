@@ -1,34 +1,32 @@
 import React, { useContext } from "react";
 import GamesContext from "../context/GamesContext";
+import ReactPaginate from "react-paginate";
 
 export default function Pagination() {
-	const { currentPage, nPages, setCurrentPage, prevPage, nextPage } =
+	const { pageCount, handlePageClick, currentPage } =
 		useContext(GamesContext);
-	const pageNumbers = [...Array(nPages + 1).keys()].slice(1);
-	const pageSiblings = pageNumbers.slice(0, 5); // Fix pagination
-	// Too many pages show up
-	// Make compact
+
 	return (
 		<div className="flex flex-col justify-center pt-8 pb-4 pl-8 pr-8 mx-auto">
-			<div className="btn-group">
-				<button className="btn" onClick={() => prevPage()}>
-					Prev
-				</button>
-				{pageSiblings.map((pageNum, index) => (
-					<button
-						className={`btn ${
-							pageNum === currentPage ? "btn-active" : ""
-						}`}
-						onClick={() => setCurrentPage(pageNum)}
-						key={index}
-					>
-						{pageNum}
-					</button>
-				))}
-				<button className="btn" onClick={() => nextPage()}>
-					Next
-				</button>
-			</div>
+			<ReactPaginate
+				containerClassName="btn-group"
+				breakLinkClassName="btn"
+				pageLinkClassName="btn"
+				activeLinkClassName="btn-primary"
+				previousLinkClassName="btn"
+				nextLinkClassName="btn"
+				//
+				breakLabel="..."
+				nextLabel=" > "
+				previousLabel=" < "
+				//
+				forcePage={currentPage}
+				onPageChange={handlePageClick}
+				pageRangeDisplayed={2}
+				marginPagesDisplayed={0}
+				pageCount={pageCount}
+				renderOnZeroPageCount={null}
+			/>
 		</div>
 	);
 }

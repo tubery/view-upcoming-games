@@ -46,6 +46,10 @@
 *   Clear all filters button - Not true clear all, ideally remove all checkbox
     to unchecked, reset to oroginal list without page refresh
 
+*   Pagination is limited size, due to not figuring out how to style with
+    tailwind, styling li makes pagination unresponsive, howver styling a tag
+    works, but does not make it cohesive
+
 # View Upcoming Games
 
 Upcoming games web application is focused on providing accessible information on

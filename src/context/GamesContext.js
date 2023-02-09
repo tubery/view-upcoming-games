@@ -33,8 +33,10 @@ export const GameProvider = ({ children }) => {
 	// Save first fetch
 	const [originalGamesList, setOriginalGamesList] = useState([]);
 	// Pagination States
-	const [currentPage, setCurrentPage] = useState(1);
-	const [gamesPerPage] = useState(10);
+	// React Paginate - https://www.npmjs.com/package/react-paginate
+	const gamesPerPage = 10;
+	const [itemOffSet, setItemOffset] = useState(0);
+	const [currentPage, setCurrentPage] = useState(0);
 
 	// Fetch Games
 	useEffect(() => {
@@ -218,25 +220,26 @@ export const GameProvider = ({ children }) => {
 				)
 		);
 		// Set games list to filtered games
-		// Sort by date NOT SURE TO IMP OR NOT
+		// setItemOffset(0);
 		setGames(allFilter);
+		handlePageClick({ selected: 0 });
 	};
 
-	// Pagination
-	// Source - https://levelup.gitconnected.com/a-simple-guide-to-pagination-in-react-facd6f785bd0
-	const indexOfLastRecord = currentPage * gamesPerPage;
-	const indexOfFirstRecord = indexOfLastRecord - gamesPerPage;
-	const currentGames = games.slice(indexOfFirstRecord, indexOfLastRecord); //
-	const nPages = Math.ceil(games.length / gamesPerPage); // Max pages
-	const prevPage = () => {
-		if (currentPage !== 1) {
-			setCurrentPage(currentPage - 1);
-		}
-	};
-	const nextPage = () => {
-		if (currentPage !== nPages) {
-			setCurrentPage(currentPage + 1);
-		}
+	// Pagination - https://www.npmjs.com/package/react-paginate
+	const endOffset = itemOffSet + gamesPerPage;
+	const currentItems = games.slice(itemOffSet, endOffset);
+	const pageCount = Math.ceil(games.length / gamesPerPage);
+
+	const handlePageClick = (event) => {
+		console.log(event);
+		const newOffset = (event.selected * gamesPerPage) % games.length;
+		setItemOffset(newOffset);
+		window.scrollTo({
+			top: 100,
+			left: 0,
+			behavior: "smooth",
+		});
+		setCurrentPage(event.selected);
 	};
 
 	// Pass down to components
@@ -255,12 +258,10 @@ export const GameProvider = ({ children }) => {
 				platformFilters,
 				monthFilters,
 				yearFilters,
-				nPages,
-				currentGames,
+				currentItems,
 				currentPage,
-				prevPage,
-				nextPage,
-				setCurrentPage,
+				pageCount,
+				handlePageClick,
 				handleCard,
 				combineGenreFilters,
 				combinePlatformFilters,

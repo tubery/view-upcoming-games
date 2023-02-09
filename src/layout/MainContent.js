@@ -13,10 +13,10 @@ export default function MainContent() {
 	return (
 		<div className="flex flex-col flex-grow gap-4 p-4 bg-base-300">
 			<Information />
-			<AllButtons />
+			{isLoading ? "" : <AllButtons />}
 			<ActiveFilters />
 			{isLoading ? <Loader /> : <Cards />}
-			<Pagination />
+			{isLoading ? "" : <Pagination />}
 		</div>
 	);
 }
