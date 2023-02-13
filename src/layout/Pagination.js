@@ -7,7 +7,7 @@ export default function Pagination() {
 		useContext(GamesContext);
 
 	return (
-		<div className="flex flex-col justify-center pt-8 pb-4 pl-8 pr-8 mx-auto">
+		<div className="flex flex-col justify-center pt-8 pb-4 mx-auto">
 			<ReactPaginate
 				containerClassName="btn-group"
 				breakLinkClassName="btn"
@@ -16,14 +16,14 @@ export default function Pagination() {
 				previousLinkClassName="btn"
 				nextLinkClassName="btn"
 				//
-				breakLabel="..."
+				breakLabel=".."
 				nextLabel=" > "
 				previousLabel=" < "
 				//
 				forcePage={currentPage}
 				onPageChange={handlePageClick}
-				pageRangeDisplayed={2}
-				marginPagesDisplayed={0}
+				pageRangeDisplayed={1}
+				marginPagesDisplayed={1}
 				pageCount={pageCount}
 				renderOnZeroPageCount={null}
 			/>
