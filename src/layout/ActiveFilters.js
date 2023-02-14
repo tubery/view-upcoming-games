@@ -2,8 +2,14 @@ import React, { useContext } from "react";
 import GamesContext from "../context/GamesContext";
 
 export default function ActiveFilters() {
-	const { genreFilters, platformFilters, monthFilters, yearFilters, months } =
-		useContext(GamesContext);
+	const {
+		genreFilters,
+		platformFilters,
+		monthFilters,
+		yearFilters,
+		months,
+		gamesPerPage,
+	} = useContext(GamesContext);
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-2 my-4 sm:px-40">
@@ -51,6 +57,10 @@ export default function ActiveFilters() {
 					))}
 				</div>
 			)}
+			<div className="flex flex-wrap items-center gap-2">
+				<h2 className="text-lg">Items per page: </h2>
+				<div className="badge">{gamesPerPage}</div>
+			</div>
 		</div>
 	);
 }

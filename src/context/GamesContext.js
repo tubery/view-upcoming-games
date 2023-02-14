@@ -34,7 +34,8 @@ export const GameProvider = ({ children }) => {
 	const [originalGamesList, setOriginalGamesList] = useState([]);
 	// Pagination States
 	// React Paginate - https://www.npmjs.com/package/react-paginate
-	const gamesPerPage = 10;
+	// const gamesPerPage = 10;
+	const [gamesPerPage, setGamesPerPage] = useState(10);
 	const [itemOffSet, setItemOffset] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 
@@ -242,6 +243,11 @@ export const GameProvider = ({ children }) => {
 		setCurrentPage(event.selected);
 	};
 
+	// Handle games per page
+	const handleGamesPerPage = (event) => {
+		setGamesPerPage(event.target.id);
+	};
+
 	// Pass down to components
 	return (
 		<GamesContext.Provider
@@ -261,8 +267,10 @@ export const GameProvider = ({ children }) => {
 				currentItems,
 				currentPage,
 				pageCount,
+				gamesPerPage,
 				handlePageClick,
 				handleCard,
+				handleGamesPerPage,
 				combineGenreFilters,
 				combinePlatformFilters,
 				combineMonthFilters,

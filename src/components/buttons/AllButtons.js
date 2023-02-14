@@ -4,6 +4,7 @@ import MonthButton from "./MonthButton";
 import ClearButton from "./ClearButton";
 import PlatformButton from "./PlatformButton";
 import YearButton from "./YearButton";
+import ItemsPerPage from "./ItemsPerPage";
 
 // Re construct buttons into reusable componenent containing checkbox
 
@@ -14,6 +15,7 @@ export default function AllButtons() {
 			<GenreButton />
 			<MonthButton />
 			<YearButton />
+			<ItemsPerPage />
 			<ClearButton />
 		</div>
 	);
