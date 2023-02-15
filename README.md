@@ -42,19 +42,22 @@ filtering options.
     restore brightness, card-body opacity 0 - Currently pseudo class controls
     overlay which makes covers dark, havent figured out how to bypass this
 
-*   Filtering - Currently on client side, switching to server side may improve
+*   Filtering - Currently on client side, switching to server side to improve
     load times
 
-*   Sort games correctly - sorting implemented correctly however small issues
+*   Sort games correctly - Sorting implemented correctly however small issues
     due to API not having full dates for all games
 
-*   Pagination
+*   Pagination - Done with react-paginate
 
-*   Screen sizes UI
+*   Screen sizes UI - Test on bigger screens
 
 ## Future work
 
 -   Reduce useState
+
+*   Fetching 500 items currently - Load times are slow, improve with caching or
+    pagination via api instead of client side, AWS caching costs money
 
 *   Optimize web app
 

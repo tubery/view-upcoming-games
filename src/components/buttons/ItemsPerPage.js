@@ -2,37 +2,24 @@ import React, { useContext } from "react";
 import GamesContext from "../../context/GamesContext";
 
 export default function ItemsPerPage() {
-	const { gamesPerPage, handleGamesPerPage } = useContext(GamesContext);
-
-	const amount = [10, 20, 30, 40, 50];
+	const { handleGamesPerPage } = useContext(GamesContext);
 
 	return (
-		<div className="dropdown">
-			<label tabIndex={0} className="p-4 btn btn-outline">
-				Items per page
-			</label>
-			<ul
-				tabIndex={0}
-				className="p-2 m-1 shadow dropdown-content menu bg-base-100 rounded-box w-52"
+		<div>
+			<select
+				className="max-w-xs select select-bordered"
+				onChange={(e) => handleGamesPerPage(e)}
+				defaultValue={"DEFAULT"}
 			>
-				{amount.map((item, index) => {
-					return (
-						<li key={index}>
-							<button
-								id={amount[index]}
-								className={
-									amount[index] === gamesPerPage
-										? "btn-active"
-										: " "
-								}
-								onClick={(e) => handleGamesPerPage(e)}
-							>
-								{item}
-							</button>
-						</li>
-					);
-				})}
-			</ul>
+				<option value="DEFAULT" disabled>
+					Items per page
+				</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="40">40</option>
+				<option value="50">50</option>
+			</select>
 		</div>
 	);
 }

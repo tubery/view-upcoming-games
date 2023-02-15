@@ -245,7 +245,7 @@ export const GameProvider = ({ children }) => {
 
 	// Handle games per page
 	const handleGamesPerPage = (event) => {
-		setGamesPerPage(event.target.id);
+		setGamesPerPage(event.target.value);
 	};
 
 	// Pass down to components
