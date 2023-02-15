@@ -229,17 +229,17 @@ export const GameProvider = ({ children }) => {
 	const handlePageClick = (event) => {
 		const newOffset = (event.selected * gamesPerPage) % games.length;
 		setItemOffset(newOffset);
+		setCurrentPage(event.selected);
 		window.scrollTo({
 			top: 100,
 			left: 0,
 			behavior: "smooth",
 		});
-		setCurrentPage(event.selected);
 	};
 
 	// Handle games per page
 	const handleGamesPerPage = (event) => {
-		setGamesPerPage(event.target.value);
+		setGamesPerPage(parseInt(event.target.value));
 	};
 
 	// Pass down to components
