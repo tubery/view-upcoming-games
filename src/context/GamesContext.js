@@ -43,19 +43,16 @@ export const GameProvider = ({ children }) => {
 	useEffect(() => {
 		// Get Data from API
 		const fetchDb = async () => {
-			const response = await fetch(
-				"https://hg3xf9f66l.execute-api.us-west-2.amazonaws.com/production/v4/games",
-				{
-					method: "POST",
-					mode: "cors", // no-cors, *cors, same-origin
-					cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-					headers: {
-						"Content-Type": "application/json",
-						"x-api-key": "HS0Fvb4VSm7VLGTLFlDzN55pdZGS0sFE5HtOiuej",
-					},
-					body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; sort date asc; where release_dates.y >= ${currentYear} & release_dates.m >= ${currentMonth}; limit 500;`,
-				}
-			);
+			const response = await fetch(process.env.REACT_APP_AWS_URL, {
+				method: "POST",
+				mode: "cors", // no-cors, *cors, same-origin
+				cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+				headers: {
+					"Content-Type": "application/json",
+					"x-api-key": process.env.REACT_APP_AWS_KEY,
+				},
+				body: `fields name, summary, release_dates.m, release_dates.y, release_dates.date, release_dates.human, genres.name, platforms.abbreviation, websites.url, cover.url; sort date asc; where release_dates.y >= ${currentYear} & release_dates.m >= ${currentMonth}; limit 500;`,
+			});
 			let data = await response.json();
 			sortByDates(data); // Sort games before setting state
 			setGames(data); // Set games state
