@@ -34,7 +34,6 @@ export const GameProvider = ({ children }) => {
 	const [originalGamesList, setOriginalGamesList] = useState([]);
 	// Pagination States
 	// React Paginate - https://www.npmjs.com/package/react-paginate
-	// const gamesPerPage = 10;
 	const [gamesPerPage, setGamesPerPage] = useState(10);
 	const [itemOffSet, setItemOffset] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
@@ -218,7 +217,6 @@ export const GameProvider = ({ children }) => {
 				)
 		);
 		// Set games list to filtered games
-		// setItemOffset(0);
 		setGames(allFilter);
 		handlePageClick({ selected: 0 });
 	};
@@ -229,7 +227,6 @@ export const GameProvider = ({ children }) => {
 	const pageCount = Math.ceil(games.length / gamesPerPage);
 
 	const handlePageClick = (event) => {
-		console.log(event);
 		const newOffset = (event.selected * gamesPerPage) % games.length;
 		setItemOffset(newOffset);
 		window.scrollTo({

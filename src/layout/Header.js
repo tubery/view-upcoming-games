@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
 import GamesContext from "../context/GamesContext";
 
-// To Do
-// 1. Change a Link to Link component
-// 2. Change updated to component which changes automatically
-// 3. Center Nav
-
 export default function Header() {
 	const { currentMonth, currentYear } = useContext(GamesContext);
 

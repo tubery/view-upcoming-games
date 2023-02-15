@@ -12,6 +12,7 @@ export default function Cards() {
 						className="h-auto shadow-xl card sm:w-1/2 md:w-2/5 lg:w-1/4 bg-base-100 image-full card-compact"
 						key={game.id}
 					>
+						{/* Game cover as background */}
 						<figure>
 							<img
 								src={
@@ -25,6 +26,7 @@ export default function Cards() {
 								alt="Game cover"
 							/>
 						</figure>
+						{/* Game title */}
 						<div className="m-2 transition-opacity card-body">
 							<div className="flex justify-around">
 								<a
@@ -54,6 +56,7 @@ export default function Cards() {
 									</svg>
 								</a>
 							</div>
+							{/* Description */}
 							<p
 								className="mb-2 text-lg text-left text-gray-100 cursor-pointer line-clamp-1 hover:text-gray-300"
 								onClick={(e) => handleCard(e)}
@@ -96,6 +99,7 @@ export default function Cards() {
 									</h3>
 								)}
 							</div>
+							{/* Release dates */}
 							<div className="p-3 text-xl badge badge-accent">
 								{game.hasOwnProperty("release_dates")
 									? game.release_dates.reduce(

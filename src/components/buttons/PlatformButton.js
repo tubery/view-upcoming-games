@@ -6,8 +6,6 @@ export default function PlatformButton() {
 	const { platforms, combinePlatformFilters, updateList } =
 		useContext(GamesContext);
 
-	// Harcoded
-	// Make dynamic
 	const checkPopular = (name) => {
 		if (
 			name === "PC" ||

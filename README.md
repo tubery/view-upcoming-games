@@ -19,7 +19,7 @@ filtering options.
 1. npm install
 2. npm run start
 
-## Todo
+## To do
 
 -   Set up proxy server - Due to cors error setting up a proxy to solve the
     problem. Solved via AWS cloudformation proxy
@@ -40,13 +40,14 @@ filtering options.
 
 *   Make button to see image .card.image-full:before backbground color to
     restore brightness, card-body opacity 0 - Currently pseudo class controls
-    overlay which makes covers dark, havent figured out how to bypass this
+    overlay which makes covers dark, havent figured out how to bypass this,
+    daisyui
 
 *   Filtering - Currently on client side, switching to server side to improve
     load times
 
 *   Sort games correctly - Sorting implemented correctly however small issues
-    due to API not having full dates for all games
+    due to API not having full dates for all games, e.g some only have year
 
 *   Pagination - Done with react-paginate
 

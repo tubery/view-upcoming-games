@@ -2,9 +2,6 @@ import React, { useContext } from "react";
 import GamesContext from "../../context/GamesContext";
 import Radio from "./Radio";
 
-// Month button
-// Static list of months
-
 export default function MonthButton() {
 	const { combineMonthFilters, updateList, months } =
 		useContext(GamesContext);
