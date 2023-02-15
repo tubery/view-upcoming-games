@@ -9,7 +9,7 @@ export default function Cards() {
 			{currentItems.map((game) => {
 				return (
 					<div
-						className="h-auto shadow-xl card sm:w-1/2 md:w-2/5 lg:w-1/4 bg-base-100 image-full card-compact"
+						className="h-auto shadow-xl card sm:w-1/2 md:w-2/5 lg:w-1/4 xl:w-1/5 bg-base-100 image-full card-compact"
 						key={game.id}
 					>
 						{/* Game cover as background */}
