@@ -44,8 +44,8 @@ export const GameProvider = ({ children }) => {
 		const fetchDb = async () => {
 			const response = await fetch(process.env.REACT_APP_AWS_URL, {
 				method: "POST",
-				mode: "cors", // no-cors, *cors, same-origin
-				cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+				mode: "cors",
+				cache: "no-cache",
 				headers: {
 					"Content-Type": "application/json",
 					"x-api-key": process.env.REACT_APP_AWS_KEY,
@@ -55,7 +55,7 @@ export const GameProvider = ({ children }) => {
 			let data = await response.json();
 			sortByDates(data); // Sort games before setting state
 			setGames(data); // Set games state
-			setOriginalGamesList(data); // Backup of game state
+			setOriginalGamesList(data); // Backup of game state, due to game state changing
 			updateGenresList(data); // Update dynamic genre list
 			updatePlatformList(data); // Update dynamic platform list
 			updateYearList(data); // Update dynamic year list
@@ -65,15 +65,14 @@ export const GameProvider = ({ children }) => {
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Initial Page Load *****************************************
-	// Sort games by dates
+	// Sort games by dates, when fetching initial data
 	const sortByDates = (data) => {
 		data.sort((a, b) => comparison(a, b));
 	};
 
 	// Utility function
-	// return item with highest
-	// currently not general util
-	// repurpose later
+	// return single highest date in an array, from a array of many release dates
+	// repurpose later and refactor, unreadable with many ternarys
 	const comparison = (prev, current) => {
 		return prev.release_dates.reduce((prev, current) =>
 			prev.date > current.date ? prev : current
@@ -85,8 +84,8 @@ export const GameProvider = ({ children }) => {
 			: -1;
 	};
 
-	// Update list to render buttons
-	// Dynamic as genre list may change with time
+	// Update list to render buttons, Dynamic as genre list may change with time
+	// Future work, repurpose into general function
 	const updateGenresList = (games) => {
 		let tempSet = new Set();
 		games.map((game) =>
@@ -98,9 +97,8 @@ export const GameProvider = ({ children }) => {
 		setGenres(tempArr);
 	};
 
-	// Update list to render platform button
-	// Repurpose into general function for genre and platforms ****
-	// Dynamic list of platforms
+	// Update list to render platform button, Dynamic list of platforms
+	// Future work, repurpose into general function
 	const updatePlatformList = (games) => {
 		let tempSet = new Set();
 		games.map((game) =>
@@ -114,9 +112,8 @@ export const GameProvider = ({ children }) => {
 		setPlatforms(tempArr);
 	};
 
-	// Update list to render year button
-	// Repurpose into general function for genre and platforms ****
-	// Dynamic list of years
+	// Update list to render year button, Dynamic list of years
+	// Future work, repurpose into general function
 	const updateYearList = (games) => {
 		let tempSet = new Set();
 		games.map((game) =>
@@ -130,9 +127,9 @@ export const GameProvider = ({ children }) => {
 		setYears(tempArr);
 	};
 
-	// Hide card-body on click
-	// and show iamge
-	// .card.image-full:before backbground color
+	// Hide card-body on click and show iamge
+	// .card.image-full:before { backbground-color }
+	// property above controls overlay on games, for future modify to make brighter covers
 	const handleCard = (e) => {
 		const item = e.target.parentElement;
 		if (item.classList.contains("card-body")) {
@@ -158,6 +155,7 @@ export const GameProvider = ({ children }) => {
 	};
 
 	// Set Platform filters
+	// same as above
 	const combinePlatformFilters = (name) => {
 		if (name.checked) {
 			setPlatformfilters([...platformFilters, name.id]);
@@ -183,16 +181,20 @@ export const GameProvider = ({ children }) => {
 		}
 	};
 
-	// Combine all filters on modal close
-	// Check target array exists in games function, Utility function
+	// Check target array exists in games, Utility function
 	const checker = (arr, target) => target.every((item) => arr.includes(item));
 
 	// Combine all filters on modal close
 	const updateList = () => {
 		// Current date in unix timestamp
+		// when user chooses month filter they can choose current month
+		// showing games in preview years
+		// list only games after current date using timestamp
 		var unixTimestamp = Math.round(+new Date() / 1000);
 
 		// Find games based on filters
+		// checks every filter and checks against every game in array
+		// returning an array of items that meet user filters
 		const allFilter = originalGamesList.filter(
 			(game) =>
 				checker(
@@ -216,25 +218,26 @@ export const GameProvider = ({ children }) => {
 					yearFilters
 				)
 		);
-		// Set games list to filtered games
-		setGames(allFilter);
-		handlePageClick({ selected: 0 });
+		setGames(allFilter); // Set games list to filtered games
+		handlePageClick({ selected: 0 }); // return to first page when adding filters
 	};
 
 	// Pagination - https://www.npmjs.com/package/react-paginate
-	const endOffset = itemOffSet + gamesPerPage;
-	const currentItems = games.slice(itemOffSet, endOffset);
+	const endOffset = itemOffSet + gamesPerPage; // calculate slice of array
+	const currentItems = games.slice(itemOffSet, endOffset); // curent items to show on page
 	const pageCount = Math.ceil(games.length / gamesPerPage);
 
 	const handlePageClick = (event) => {
 		const newOffset = (event.selected * gamesPerPage) % games.length;
 		setItemOffset(newOffset);
 		setCurrentPage(event.selected);
-		window.scrollTo({
-			top: 100,
-			left: 0,
-			behavior: "smooth",
-		});
+		// setTimeout due to bug in safari and mobile views
+		setTimeout(() => {
+			window.scrollTo({
+				top: 50,
+				left: 0,
+			});
+		}, 50);
 	};
 
 	// Handle games per page

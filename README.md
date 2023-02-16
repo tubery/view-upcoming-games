@@ -16,10 +16,14 @@ filtering options.
 
 ## How to install and run
 
-1. npm install
-2. npm run start
+1. Obtain twitch client id, twitch secret, twitch access token from guide
+    - https://api-docs.igdb.com/#getting-started
+2. Cors error when accessing API, follow
+    - https://api-docs.igdb.com/#cors-proxy
+3. npm install
+4. npm run start
 
-## To do
+## Development notes
 
 -   Set up proxy server - Due to cors error setting up a proxy to solve the
     problem. Solved via AWS cloudformation proxy
